@@ -8,7 +8,7 @@ algorithm (infix expression without parantheses works only for + - * and /)
 	and repeate this process with every subtree
 	->if the root of subtree is * or / we have to shift the entire subtree and make it the left child of the current operator node
 ===================================================================================================================================
-TODO :
+TODO :(infix to post fix notation)
 -----
 1->create Node
 	structure with a data field and two pointer fields which points two childs
@@ -26,3 +26,36 @@ TODO :
 3->branchRotator
 4->subTreeShifter
 5->root pointer points the root node 
+===================================================================================================================================
+tree:
+-----
+
+structure of each node {
+	data;
+	leftChild;
+	rightChild;	
+}
+
+structure of tree {
+	root;[points to root];
+	count;[number of node];
+}
+
+1-->createTree[will initialize the tree]
+2-->createTreeNode[will create each node]
+3-->insertNode[will insert new node in the existing tree]
+4-->findPosition[will find where to put the new node]
+5-->giveDirection[will tell whether to go right or left]
+6-->attachNode[will attach the given node to its proper position]
+
+
+
+
+
+
+
+
+
+
+
+
