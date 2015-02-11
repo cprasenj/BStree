@@ -27,11 +27,29 @@ int insert(BSTree* tree,int data) {
 	tree->count++; 
 	return 1;
 }
+
+int isLeafNode(Node* node) {
+	return !node->leftChild && !node->rightChild ? 1 :0;
+}
+
 Node* find(BSTree tree,int data) {
 	BSTree subTree = createBSTree();
-	Node* node = NULL;
-	data == tree.root->data && (node = tree.root);
-	tree.root->rightChild && data > tree.root->data && (subTree.root = tree.root->rightChild) && find(subTree,data);
-	tree.root->leftChild && data < tree.root->data && (subTree.root = tree.root->leftChild) && find(subTree,data); 
-	return node;
+	if(!tree.root) return NULL;
+	if(data == tree.root->data)
+		return tree.root;
+	tree.root->rightChild && (data > tree.root->data) && (subTree.root = tree.root->rightChild);
+	tree.root->leftChild && (data < tree.root->data) && (subTree.root = tree.root->leftChild); 
+	return find(subTree,data);
 }
+
+Node* delete(BSTree* tree,int data) {
+	BSTree subTree = createBSTree();
+	Node* node = NULL;
+	tree->root->rightChild && tree->root->rightChild->data == data && (node = tree->root->rightChild) && (tree->root->rightChild = NULL);
+	tree->root->leftChild && tree->root->leftChild->data == data && (node = tree->root->leftChild) && (tree->root->leftChild = NULL);
+	if(!node){
+		data < tree->root->data && (subTree.root = tree->root->leftChild) && (node = delete(&subTree,data));
+		data > tree->root->data && (subTree.root = tree->root->rightChild) && (node = delete(&subTree,data));		 
+	}
+	return node; 
+} 

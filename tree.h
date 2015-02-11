@@ -19,3 +19,5 @@ int insert(BSTree*,int);
 Node* find(BSTree,int);
 Node* findRight(BSTree*,int);
 Node* findLeft(BSTree*,int);
+Node* delete(BSTree*,int); 
+int isLeafNode(Node*);

@@ -141,8 +141,23 @@ void test_insert_007() {
 	assertEqual(tree.root->rightChild->leftChild->data,9);
 }
 
+void test_isLeafNode_001() {
+	say("Returns 1 for leaf node");
+	BSTree tree = createBSTree();
+	assertEqual(insert(&tree,8),1);
+	assertEqual(isLeafNode(tree.root),1);
+}
+
+void test_isLeafNode_002() {
+	say("Returns 1 for leaf node");
+	BSTree tree = createBSTree();
+	assertEqual(insert(&tree,8),1);
+	assertEqual(insert(&tree,10),1);
+	assertEqual(isLeafNode(tree.root),0);
+}
+
 void test_find_001() {
-	say("returns -1 if node not found");
+	say("returns NULL if node not found");
 	BSTree tree = createBSTree();
 	assertEqual(insert(&tree,8),1);
 	assertEqual(tree.root->data,8);
@@ -161,7 +176,20 @@ void test_find_001() {
 	assertEqual(find(tree,56),0);
 }
 
+
 void test_find_002() {
+	say("returns the node if node not found");
+	int res;
+	BSTree tree = createBSTree();
+	assertEqual(insert(&tree,8),1);
+	assertEqual(insert(&tree,7),1);
+	assertEqual(insert(&tree,10),1);
+	assertEqual(insert(&tree,6),1);
+	assertEqual(find(tree,8)->data,8);
+	assertEqual(find(tree,7)->data,7);
+}
+
+void test_find_003() {
 	say("returns the node if node not found");
 	BSTree tree = createBSTree();
 	assertEqual(insert(&tree,8),1);
@@ -179,20 +207,42 @@ void test_find_002() {
 	assertEqual(tree.root->data,8);
 	assertEqual(tree.root->rightChild->leftChild->data,9);
 	assertEqual(find(tree,8)->data,8);
+	assertEqual(find(tree,9)->data,9);
 }
 
+void test_delete_001() {
+	say("returns the deleted leafnode from the tree");
+	BSTree tree = createBSTree();
+	assertEqual(insert(&tree,8),1);
+	assertEqual(insert(&tree,7),1);
+	assertEqual(insert(&tree,10),1);
+	assertEqual(delete(&tree,7)->data,7);
+	assertEqual(tree.root->leftChild,0);
+	assertEqual(delete(&tree,10)->data,10);
+	assertEqual(tree.root->rightChild,0);
+} 
 
+void test_delete_002() {
+	say("returns the deleted leafnode from the tree");
+	BSTree tree = createBSTree();
+	assertEqual(insert(&tree,8),1);
+	assertEqual(insert(&tree,7),1);
+	assertEqual(insert(&tree,10),1);
+	assertEqual(insert(&tree,5),1);
+	assertEqual(delete(&tree,10)->data,10);
+	assertEqual(tree.root->rightChild,0);
+	assertEqual(delete(&tree,5)->data,5);
+	assertEqual(tree.root->leftChild->leftChild,0);
+} 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+void test_delete_003() {
+	say("returns the deleted leafnode from the tree");
+	BSTree tree = createBSTree();
+	assertEqual(insert(&tree,8),1);
+	assertEqual(insert(&tree,7),1);
+	assertEqual(insert(&tree,10),1);
+	assertEqual(insert(&tree,5),1);
+	assertEqual(insert(&tree,12),1);
+	assertEqual(delete(&tree,12)->data,12);
+	assertEqual(tree.root->rightChild->rightChild,0);
+} 
