@@ -2,11 +2,11 @@
 #include <stdio.h>
 
 Node* createTreeNode (int data) {
-	Node *point; 
+	Node *point;
 	point = calloc(sizeof(Node),1);
 	point->data = data;
 	return point;
-} 
+}
 BSTree createBSTree(void) {
 	BSTree *tree;
 	tree = calloc(sizeof(BSTree),1);
@@ -21,10 +21,10 @@ int insert(BSTree* tree,int data) {
 		!tree->root->leftChild &&(tree->root->leftChild = node);
 	}
 	if(data > tree->root->data) {
-		tree->root->rightChild && (subTree.root = tree->root->rightChild) && insert(&subTree,data);	
+		tree->root->rightChild && (subTree.root = tree->root->rightChild) && insert(&subTree,data);
 		!tree->root->rightChild && (tree->root->rightChild = node);
 	}
-	tree->count++; 
+	tree->count++;
 	return 1;
 }
 
@@ -38,7 +38,7 @@ Node* find(BSTree tree,int data) {
 	if(data == tree.root->data)
 		return tree.root;
 	tree.root->rightChild && (data > tree.root->data) && (subTree.root = tree.root->rightChild);
-	tree.root->leftChild && (data < tree.root->data) && (subTree.root = tree.root->leftChild); 
+	tree.root->leftChild && (data < tree.root->data) && (subTree.root = tree.root->leftChild);
 	return find(subTree,data);
 }
 
@@ -55,33 +55,35 @@ Node* delete(BSTree* tree,int data) {
 	Node *node = NULL,*root,*right,*left;
 	root = tree->root;
 	right = root->rightChild;
-	left = root->leftChild; 
+	left = root->leftChild;
 	if(root->data == data) {
 		!isLeafNode(root) && right && swap(right,root) && (subTree.root = right)
 		&& (node = delete(&subTree,data));
 		isLeafNode(root) && (node = root) && (tree->root = NULL);
 		return node;
-	} 
+	}
 	if(!node){
 		left && data < root->data && (subTree.root = left) && (node = delete(&subTree,data));
-		right && data > root->data && (subTree.root = right) && (node = delete(&subTree,data));		 
+		right && data > root->data && (subTree.root = right) && (node = delete(&subTree,data));
 	}
 	if(right && data == right->data)
 		isLeafNode(root->rightChild) && (node = root->rightChild) &&  (root->rightChild = NULL);
 	if(left && data == left->data)
 		isLeafNode(root->leftChild) && (node = root->leftChild) &&  (root->leftChild = NULL);
-	return node; 
-} 
+	return node;
+}
 
 void traverse(BSTree tree,traverser a) {
 	BSTree subTree = createBSTree();
-	if(tree.root->leftChild) {
-		subTree.root = tree.root->leftChild;
-		traverse(subTree,a);
-	}
-	a(tree.root->data);
-	if(tree.root->rightChild) {
-		subTree.root = tree.root->rightChild;
-		traverse(subTree,a);
+	if(tree.root){
+		if(tree.root->leftChild) {
+			subTree.root = tree.root->leftChild;
+			traverse(subTree,a);
+		}
+		a(tree.root->data);
+		if(tree.root->rightChild) {
+			subTree.root = tree.root->rightChild;
+			traverse(subTree,a);
+		}
 	}
 }

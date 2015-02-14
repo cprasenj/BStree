@@ -27,7 +27,7 @@ void test_createTreeNode_001() {
 	assertEqual(a->data,8);
 	assertEqual(a->leftChild,0);
 	assertEqual(a->rightChild,0);
-} 
+}
 
 void test_createTreeNode_002() {
 	say("createTreeNode creates a tree node with given data");
@@ -220,7 +220,7 @@ void test_delete_001() {
 	assertEqual(tree.root->leftChild,0);
 	assertEqual(delete(&tree,10)->data,10);
 	assertEqual(tree.root->rightChild,0);
-} 
+}
 
 void test_delete_002() {
 	say("returns the deleted leafnode from the tree");
@@ -233,7 +233,7 @@ void test_delete_002() {
 	assertEqual(tree.root->rightChild,0);
 	assertEqual(delete(&tree,5)->data,5);
 	assertEqual(tree.root->leftChild->leftChild,0);
-} 
+}
 
 void test_delete_003() {
 	say("returns the deleted leafnode from the tree");
@@ -245,7 +245,7 @@ void test_delete_003() {
 	assertEqual(insert(&tree,12),1);
 	assertEqual(delete(&tree,12)->data,12);
 	assertEqual(tree.root->rightChild->rightChild,0);
-} 
+}
 
 void test_delete_004() {
 	say("returns the deleted root node when there is only one root in the tree");
@@ -253,7 +253,7 @@ void test_delete_004() {
 	assertEqual(insert(&tree,8),1);
 	assertEqual(delete(&tree,8)->data,8);
 	assertEqual(tree.root,0);
-} 
+}
 
 void test_delete_005() {
 	say("returns the deleted root node");
@@ -263,7 +263,7 @@ void test_delete_005() {
 	assertEqual(insert(&tree,10),1);
 	assertEqual(delete(&tree,8)->data,8);
 	assertEqual(tree.root->data,10);
-} 
+}
 
 void test_delete_006() {
 	say("returns the deleted root node");
@@ -275,7 +275,7 @@ void test_delete_006() {
 	assertEqual(delete(&tree,10)->data,10);
 	assertEqual(tree.root->data,8);
 	assertEqual(tree.root->rightChild->data,11);
-} 
+}
 
 void test_delete_007() {
 	say("returns the deleted root node");
@@ -287,7 +287,7 @@ void test_delete_007() {
 	assertEqual(delete(&tree,7)->data,7);
 	assertEqual(tree.root->data,8);
 	assertEqual(tree.root->leftChild,0);
-} 
+}
 
 int a[] = {0,1,2,3,4,5,6},b[7];
 
@@ -313,4 +313,10 @@ void test_traverse_001() {
 	assertEqual(a[4],b[4]);
 	assertEqual(a[5],b[5]);
 	assertEqual(a[6],b[6]);
+}
+
+void test_traverse_002() {
+	say("inorder travarsal ignores blank tree");
+	BSTree tree = createBSTree();
+	traverse(tree,put);
 }
