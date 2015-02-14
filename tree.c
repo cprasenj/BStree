@@ -42,14 +42,46 @@ Node* find(BSTree tree,int data) {
 	return find(subTree,data);
 }
 
+int swap(Node* a,Node* b) {
+	int temp;
+	temp = a->data;
+	a->data = b->data;
+	b->data = temp;
+	return 1;
+}
+
 Node* delete(BSTree* tree,int data) {
 	BSTree subTree = createBSTree();
-	Node* node = NULL;
-	tree->root->rightChild && tree->root->rightChild->data == data && (node = tree->root->rightChild) && (tree->root->rightChild = NULL);
-	tree->root->leftChild && tree->root->leftChild->data == data && (node = tree->root->leftChild) && (tree->root->leftChild = NULL);
+	Node *node = NULL,*root,*right,*left;
+	root = tree->root;
+	right = root->rightChild;
+	left = root->leftChild; 
+	if(root->data == data) {
+		!isLeafNode(root) && right && swap(right,root) && (subTree.root = right)
+		&& (node = delete(&subTree,data));
+		isLeafNode(root) && (node = root) && (tree->root = NULL);
+		return node;
+	} 
 	if(!node){
-		data < tree->root->data && (subTree.root = tree->root->leftChild) && (node = delete(&subTree,data));
-		data > tree->root->data && (subTree.root = tree->root->rightChild) && (node = delete(&subTree,data));		 
+		left && data < root->data && (subTree.root = left) && (node = delete(&subTree,data));
+		right && data > root->data && (subTree.root = right) && (node = delete(&subTree,data));		 
 	}
+	if(right && data == right->data)
+		isLeafNode(root->rightChild) && (node = root->rightChild) &&  (root->rightChild = NULL);
+	if(left && data == left->data)
+		isLeafNode(root->leftChild) && (node = root->leftChild) &&  (root->leftChild = NULL);
 	return node; 
 } 
+
+void traverse(BSTree tree,traverser a) {
+	BSTree subTree = createBSTree();
+	if(tree.root->leftChild) {
+		subTree.root = tree.root->leftChild;
+		traverse(subTree,a);
+	}
+	a(tree.root->data);
+	if(tree.root->rightChild) {
+		subTree.root = tree.root->rightChild;
+		traverse(subTree,a);
+	}
+}

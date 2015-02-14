@@ -10,6 +10,7 @@ struct BStree{
 	int count;	
 };
 typedef struct BStree BSTree;
+typedef void (*traverser)(int);
 
 int add(int,int);
 
@@ -21,3 +22,4 @@ Node* findRight(BSTree*,int);
 Node* findLeft(BSTree*,int);
 Node* delete(BSTree*,int); 
 int isLeafNode(Node*);
+void traverse(BSTree,traverser);
