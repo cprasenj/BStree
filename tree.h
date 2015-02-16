@@ -23,3 +23,4 @@ Node* findLeft(BSTree*,int);
 Node* delete(BSTree*,int); 
 int isLeafNode(Node*);
 void traverse(BSTree,traverser);
+void postOrderTraversal(BSTree,traverser);

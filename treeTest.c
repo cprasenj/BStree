@@ -320,3 +320,29 @@ void test_traverse_002() {
 	BSTree tree = createBSTree();
 	traverse(tree,put);
 }
+
+int c[] = {0,1,2,3,4,5,6},d[7];
+
+void puts(int a) {
+	d[6-a] = a;
+}
+
+void test_traverse_003() {
+	say("inorder travarsal gives numbers in accending order");
+	BSTree tree = createBSTree();
+	assertEqual(insert(&tree,3),1);
+	assertEqual(insert(&tree,1),1);
+	assertEqual(insert(&tree,5),1);
+	assertEqual(insert(&tree,0),1);
+	assertEqual(insert(&tree,2),1);
+	assertEqual(insert(&tree,4),1);
+	assertEqual(insert(&tree,6),1);
+	postOrderTraversal(tree,puts);
+	assertEqual(c[0],d[6]);
+	assertEqual(c[1],d[5]);
+	assertEqual(c[2],d[4]);
+	assertEqual(c[3],d[3]);
+	assertEqual(c[4],d[2]);
+	assertEqual(c[5],d[1]);
+	assertEqual(c[6],d[0]);
+}

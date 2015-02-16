@@ -75,7 +75,7 @@ Node* delete(BSTree* tree,int data) {
 
 void traverse(BSTree tree,traverser a) {
 	BSTree subTree = createBSTree();
-	if(tree.root){
+	if(tree.root) {
 		if(tree.root->leftChild) {
 			subTree.root = tree.root->leftChild;
 			traverse(subTree,a);
@@ -85,5 +85,20 @@ void traverse(BSTree tree,traverser a) {
 			subTree.root = tree.root->rightChild;
 			traverse(subTree,a);
 		}
+	}
+}
+
+void postOrderTraversal(BSTree tree,traverser a) {
+	BSTree subTree = createBSTree();
+	if(tree.root) {
+		if(tree.root->rightChild) {
+			subTree.root = tree.root->rightChild;
+			traverse(subTree,a);
+		}
+		if(tree.root->leftChild) {
+			subTree.root = tree.root->leftChild;
+			traverse(subTree,a);
+		}
+		a(tree.root->data);
 	}
 }
